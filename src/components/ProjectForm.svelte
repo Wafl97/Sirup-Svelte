@@ -1,5 +1,6 @@
 <script lang="ts">
-    import {addProject} from "../stores/projects";
+    import InputSubmit from "../composables/InputSubmit.svelte";
+import {addProject} from "../stores/projects";
 
     let projectName = "";
 
@@ -17,15 +18,15 @@
 <style>
     #bg {
         z-index: 999999;
-        backdrop-filter: blur(2px);
-        background-color: rgba(125,125,125,.50);
-        padding: 5rem;
-        border: solid 2px rgb(45,45,55);
+        backdrop-filter: blur(10px);
+        background-color: var(--card-color);
+        padding: 2rem 5rem;
         border-radius: 10px;
         position: fixed;
         top: 25%;
         left: 50%;
-        transform: translate(-50%, 50%);
+        transform: translate(-50%, 25%);
+        overflow: hidden;
     }
     #new-btn {
         margin: 1.5rem;
@@ -50,6 +51,27 @@
         border: solid 2px white;
         margin-right: 3rem;
     }
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .field {
+        display: flex;
+        align-items: center;
+    }
+    #close {
+        position: absolute;
+        right: 0;
+        top: 0;
+        background-color: rgba(255,0,0,.95);
+        border: none;
+        color: white;
+        font-size: 1rem;
+        width: 1.5rem;
+        border-radius: 0 0 0 10px;
+        cursor: pointer;
+    }
 </style>
 
 <div id="new-btn" on:click={() => toggleForm()}>
@@ -58,12 +80,13 @@
 </div>
 
 {#if showForm}
-    <div id="bg">
+    <div id="bg" style="--">
+        <button id="close" on:click={() => toggleForm()}>X</button>
         <form>
-            <label for="projectName">Project Name
+            <div class="field">
                 <input type="text" name="projectName" id="projectName" bind:value={projectName} placeholder="New Project">
-            </label>
-            <input type="submit" value="Create" on:click={() => createProject()}>
+            </div>
+            <InputSubmit value="Create" action={() => createProject()}></InputSubmit>
         </form>
     </div>
 {/if}

@@ -33,32 +33,18 @@
     input {
         margin-block: 1rem;
         font-size: 1rem;
-        background-color: var(--input-color);
         border: none;
         border-radius: 15px;
         padding: .5rem;
-        color: var(--font-color);
         width: 100%;
-    }
-    input:hover {
-        background-color: rgba(128,128,128,.1);;
     }
     .field {
         display: flex;
         align-items: center;
     }
-    input[type=submit] {
-        cursor: pointer;
-        text-align: center;
-        background-color: green;
-        color: white;
-    }
-    input[type=submit]:hover {
-        background-color: darkgreen;
-    }
 </style>
 
-<div class="center" style="--input-color:{$theme.card_color}; --font-color: {$theme.font_color}">
+<div class="center">
     <form action="#">
         <div class="field">
             <label for="login_username">Username:</label>

@@ -1,5 +1,7 @@
 <script lang="ts">
-    import type { Project, POS } from "../../stores/projects";
+    import Card from "../../composables/Card.svelte";
+import Hoverable from "../../composables/Hoverable.svelte";
+import type { Project, POS } from "../../stores/projects";
     import {theme} from "../../stores/theme";
 
     export let project: Project;
@@ -52,6 +54,16 @@
         border: rgb(45,45,55) 1px solid;
         color: var(--font-color);
     }
+    .section-title {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        
+    }
+    .info-icon {
+        user-select: none;
+        position: relative;
+    }
 </style>
 
 {#if project}
@@ -75,7 +87,15 @@
         </div>
         <div id="row2" class="row">
             <div class="box">
-                <p>Problem/Opportunity</p>
+                <p class="section-title">
+                    Problem/Opportunity
+                    <Hoverable>
+                        <p slot="info">
+                            The different problems that the project can incounter,<br> in addition to the opportunities it also can enable
+                        </p>
+                        <span class="info-icon">🛈</span>
+                    </Hoverable>
+                </p>
                 <textarea
                         class="textarea"
                         name="problem"
@@ -88,7 +108,16 @@
         </div>
         <div id="row3" class="row">
             <div class="box">
-                <p>Goal</p>
+                <p class="section-title">
+                    Goal
+                    <Hoverable>
+                        <p slot="info">
+                            What is the overall goal of the project?<br>
+                            What is the intended product or service, and what will is offer?
+                        </p>
+                        <span class="info-icon">🛈</span>
+                    </Hoverable>
+                </p>
                 <textarea
                         class="textarea"
                         name="problem"
@@ -101,7 +130,15 @@
         </div>
         <div id="row4" class="row">
             <div class="box">
-                <p>Objectives</p>
+                <p class="section-title">
+                    Objectives
+                    <Hoverable>
+                        <p slot="info">
+                            What are the different objectives that are needed to complete the project?
+                        </p>
+                        <span class="info-icon">🛈</span>
+                    </Hoverable>
+                </p>
                 <textarea
                         class="textarea"
                         name="problem"
@@ -114,7 +151,15 @@
         </div>
         <div id="row5" class="row">
             <div class="box">
-                <p>Success Criteria</p>
+                <p class="section-title">
+                    Success Criteria
+                    <Hoverable>
+                        <p slot="info">
+                            What is needed for the project to be accepted as a success?
+                        </p>
+                        <span class="info-icon">🛈</span>
+                    </Hoverable>
+                </p>
                 <textarea
                         class="textarea"
                         name="problem"
@@ -127,7 +172,17 @@
         </div>
         <div id="row6" class="row">
             <div class="box">
-                <p>Assumptions, Risks, Obstacles</p>
+                <p class="section-title">
+                    Assumptions, Risks, Obstacles
+                    <Hoverable>
+                        <p slot="info">
+                            What are the different assumptions that are made about the project?<br>
+                            What are the risks that might occur during the project?<br>
+                            What obstacles can cause challenges for the project?
+                        </p>
+                        <span class="info-icon">🛈</span>
+                    </Hoverable>
+                </p>
                 <textarea
                         class="textarea"
                         name="problem"

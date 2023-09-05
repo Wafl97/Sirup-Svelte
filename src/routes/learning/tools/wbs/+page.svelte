@@ -45,13 +45,30 @@
                                 ]
                             }
                         ]
+                    },
+                    {
+                        sub_deliverable: "Admin-Platfor",
+                        lowest_sub_deliverables: [
+
+                        ]
                     }
                 ]
             },
             {
                 deliverable: "Backend",
                 sub_deliverables: [
+                    {
+                        sub_deliverable: "Data-Service",
+                        lowest_sub_deliverables: [
 
+                        ]
+                    },
+                    {
+                        sub_deliverable: "Register-Service",
+                        lowest_sub_deliverables: [
+
+                        ]
+                    }
                 ]
             },
             {

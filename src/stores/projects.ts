@@ -4,7 +4,6 @@ import { none, some } from "./Types";
 import type { Optional } from "./Types";
 import { v4 as uuid } from "uuid";
 
-
 type Project = {
     projectId: string;
     projectName: string;
@@ -35,7 +34,7 @@ const createId = (): string => {
     return uuid();
 }
 
-let projects: Writable<Map<string, Project>> = new writable(new Map());
+let projects: Writable<Map<string, Project>> = writable(new Map());
 const dummies = [
     {
         projectId: createId(),
@@ -103,7 +102,7 @@ const getAll = (): Optional<boolean> => {
     return some(true);
 }
 
-let projectArr;
+let projectArr: Project[];
 const getAllProjects = (): Project[] => {
     if (projectArr === undefined) {
         projects.subscribe(p => {
@@ -113,7 +112,7 @@ const getAllProjects = (): Project[] => {
     return projectArr;
 }
 
-const getProject = (projectId: string): Optional<Project> => {
+const getProject = (projectId: string): Optional<Project | null> => {
     let p;
     projects.update(projects => {
         p = projects.get(projectId);
@@ -156,7 +155,7 @@ const GET = (url: string, body?: string) => {
     return {statusCode: 200, body: ""};
 }
 
-const getUsersProjects = (userid: string): Optional<Project[]> => {
+const getUsersProjects = (userid: string): Optional<Project[] | null> => {
     const req = GET(`/api/v1/user/${userid}/projects`);
     if (req.statusCode === 200) {
         let pArr: Project[] = [];
@@ -167,4 +166,5 @@ const getUsersProjects = (userid: string): Optional<Project[]> => {
 
 const checkmark = "✓";
 
-export {Project, POS, Stage, projects, getAll, getProject, addProject, updateProject, getAllProjects}
+export { Stage, projects, getAll, getProject, addProject, updateProject, getAllProjects };
+export type { Project, POS };
