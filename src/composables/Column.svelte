@@ -14,8 +14,8 @@
         flex-direction: column;
         background-color: var(--bg-color);
         height: 100%;/*calc(var(--width) - (2 * var(--padding)));*/
-        align-items: var(--placement);
         padding-block: var(--padding);
+        align-items: var(--placement);
         left: var(--left);
     }
 </style>

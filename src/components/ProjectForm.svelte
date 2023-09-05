@@ -18,7 +18,7 @@
     #bg {
         z-index: 999999;
         backdrop-filter: blur(2px);
-        background-color: rgba(10,10,10,.50);
+        background-color: rgba(125,125,125,.50);
         padding: 5rem;
         border: solid 2px rgb(45,45,55);
         border-radius: 10px;
@@ -53,15 +53,15 @@
 </style>
 
 <div id="new-btn" on:click={() => toggleForm()}>
-    <div id="plus">+</div>
-    <div id="new-txt">Create new project</div>
+    <span id="plus">+</span>
+    <span id="new-txt">Create new project</span>
 </div>
 
 {#if showForm}
     <div id="bg">
-        <form action="#">
+        <form>
             <label for="projectName">Project Name
-                <input type="text" name="projectName" id="projectName" bind:value={projectName}>
+                <input type="text" name="projectName" id="projectName" bind:value={projectName} placeholder="New Project">
             </label>
             <input type="submit" value="Create" on:click={() => createProject()}>
         </form>

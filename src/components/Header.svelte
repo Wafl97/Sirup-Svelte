@@ -1,8 +1,10 @@
 <script lang="ts">
-    import Dropdown from "../components/Dropdown.svelte";
-    import Row from "../components/Row.svelte";
-    import Column from "../components/Column.svelte";
+    import Dropdown from "../composables/Dropdown.svelte";
+    import Row from "../composables/Row.svelte";
+    import Column from "../composables/Column.svelte";
     import Circle from "./Circle.svelte";
+    import {currentUser, logout} from "../stores/user";
+    import {changeTheme, default_themes} from "../stores/theme";
 
     type Team = {
         owner: User;
@@ -106,66 +108,87 @@
 </style>
 
 <Row placement="space-between"
-     bg_color="rgba(10,10,10,.50)"
+     bg_color="rgba(10,10,10,.80)"
      position="fixed">
-    <Row placement="{alignments.bar}">
-        <Circle/>
-        <Dropdown
-                name="Teams" menu_placement="{alignments.menus}"
-                margin_inline="{sizes.margin_inline}"
-                width="{sizes.width}"
-                height="{sizes.height}"
-                menu_length="{sizes.menu_length}">
-            {#each teams as team}
-                <div class="menu-item">
-                    <h3 class="data-title">{team.name}</h3>
-                    <h4 class="data-sub-title">- {team.owner.name}</h4>
-                </div>
-            {/each}
-        </Dropdown>
-        <Dropdown name="Projects"
-                  menu_placement="{alignments.menus}"
-                  margin_inline="{sizes.margin_inline}"
-                  width="{sizes.width}"
-                  height="{sizes.height}"
-                  menu_length="{sizes.menu_length}">
-            {#each teams as team}
-                {#each team.projects as project}
+    <Circle/>
+    {#if $currentUser}
+        <Row placement="{alignments.bar}">
+            <Dropdown
+                    name="Teams" menu_placement="{alignments.menus}"
+                    margin_inline="{sizes.margin_inline}"
+                    width="{sizes.width}"
+                    height="{sizes.height}"
+                    menu_length="{sizes.menu_length}">
+                {#each teams as team}
                     <div class="menu-item">
-                        <h3 class="data-title">{project.name}</h3>
-                        <h4 class="data-sub-title">- {team.name}</h4>
+                        <h3 class="data-title">{team.name}</h3>
+                        <h4 class="data-sub-title">- {team.owner.name}</h4>
                     </div>
                 {/each}
-            {/each}
-        </Dropdown>
-        <Dropdown name="Programs"
-                  menu_placement="{alignments.menus}"
-                  margin_inline="{sizes.margin_inline}"
-                  width="{sizes.width}"
-                  height="{sizes.height}"
-                  menu_length="{sizes.menu_length}">
-            {#each teams as team}
-                {#each team.projects as project}
-                    {#each project.programs as program}
+            </Dropdown>
+            <Dropdown name="Projects"
+                      menu_placement="{alignments.menus}"
+                      margin_inline="{sizes.margin_inline}"
+                      width="{sizes.width}"
+                      height="{sizes.height}"
+                      menu_length="{sizes.menu_length}">
+                {#each teams as team}
+                    {#each team.projects as project}
                         <div class="menu-item">
-                            <h3 class="data-title">{program.name}</h3>
-                            <h4 class="data-sub-title">- {project.name}</h4>
+                            <h3 class="data-title">{project.name}</h3>
                             <h4 class="data-sub-title">- {team.name}</h4>
                         </div>
                     {/each}
                 {/each}
-            {/each}
-        </Dropdown>
-    </Row>
+            </Dropdown>
+            <Dropdown name="Programs"
+                      menu_placement="{alignments.menus}"
+                      margin_inline="{sizes.margin_inline}"
+                      width="{sizes.width}"
+                      height="{sizes.height}"
+                      menu_length="{sizes.menu_length}">
+                {#each teams as team}
+                    {#each team.projects as project}
+                        {#each project.programs as program}
+                            <div class="menu-item">
+                                <h3 class="data-title">{program.name}</h3>
+                                <h4 class="data-sub-title">- {project.name}</h4>
+                                <h4 class="data-sub-title">- {team.name}</h4>
+                            </div>
+                        {/each}
+                    {/each}
+                {/each}
+            </Dropdown>
+        </Row>
+    {/if}
     <Row placement="right">
-        <Dropdown name="User" menu_placement="{alignments.menus}" margin_inline="{sizes.margin_inline}" width="{sizes.width}" height="{sizes.height}">
-            <h4 class="data-sub-title">{liUser.name}</h4>
-            <div class="menu-item">
-                <h3 class="data-title">Account</h3>
-            </div>
-            <div class="menu-item">
-                <h3 class="data-title">Logout</h3>
-            </div>
+        {#if $currentUser}
+            <Dropdown name="{$currentUser.name}"
+                      menu_placement="{alignments.menus}"
+                      margin_inline="{sizes.margin_inline}"
+                      width="{sizes.width}"
+                      height="{sizes.height}">
+                <h4 class="data-sub-title">{$currentUser.name}</h4>
+                <a href="/{$currentUser.name}">
+                    <div class="menu-item">
+                        <h3 class="data-title">Account</h3>
+                    </div>
+                </a>
+                <div class="menu-item" on:click={() => logout()}>
+                    <h3 class="data-title">Logout</h3>
+                </div>
+            </Dropdown>
+        {/if}
+        <Dropdown name="Themes"
+                  menu_placement="{alignments.menus}"
+                  margin_inline="{sizes.margin_inline}"
+                  width="{sizes.width}"
+                  height="{sizes.height}">
+            {#each Object.keys(default_themes) as themeName}
+                <div class="menu-item" on:click={() => changeTheme(themeName)}>
+                    <h4 class="data-title">{themeName}</h4>
+                </div>
+            {/each}
         </Dropdown>
     </Row>
 </Row>

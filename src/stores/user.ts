@@ -7,6 +7,10 @@ export type User = {
     name: string;
 }
 
+const currentUser: Writable<User> = new writable({
+    id: "user:0000-0000-0001",
+    name: "Wafl",
+});
 const users: Writable<User[]> = new writable([]);
 
 const getAll = () => {
@@ -23,4 +27,8 @@ const create = (user: User) => {
     });
 }
 
-export { getAll, create,  users }
+const logout = () => {
+    currentUser.set(undefined);
+}
+
+export { getAll, create, logout, currentUser, users }

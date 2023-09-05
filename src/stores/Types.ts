@@ -1,22 +1,21 @@
-enum Option {
-    SOME,NONE
-}
 
 export class Optional<T> {
     private readonly value: T;
-    private readonly option: Option;
 
     constructor(t: T) {
         this.value = t;
-        this.option = t === null ? Option.NONE : Option.SOME;
     }
 
     public isSome() {
-        return this.option === Option.SOME;
+        return this.value !== undefined || this.value !== null;
     }
 
     public isNone() {
-        return this.option === Option.NONE;
+        return this.value === undefined || this.value !== null;
+    }
+
+    public getOr(t: T): T {
+        return this.value === undefined ? t : this.value;
     }
 
     public unwrap() {
@@ -25,11 +24,11 @@ export class Optional<T> {
 }
 
 const some = <T> (t: T): Optional<T> => {
-    return  new Optional<T>(t);
+    return new Optional<T>(t);
 }
 
-const none = (): Optional<never> => {
-    return new Optional<never>(null);
+const none = (): Optional<null> => {
+    return new Optional<null>(null);
 }
 
 export {some, none};

@@ -27,8 +27,8 @@
 
     .circle {
         margin: .25rem;
-        width: 4rem;
-        height: 4rem;
+        min-width: 4rem;
+        min-height: 4rem;
         background: linear-gradient(var(--angle), var(--color-2), var(--color-1));
         border-radius: 50px;
         display: flex;
@@ -42,4 +42,4 @@
     }
 </style>
 
-<a class="circle" href="/">SiRUP</a>
+<a class="circle" href="/">C-RUP</a>
