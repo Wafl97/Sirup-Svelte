@@ -169,7 +169,7 @@
                       width="{sizes.width}"
                       height="{sizes.height}">
                 <h4 class="data-sub-title">{$currentUser.name}</h4>
-                <a href="/{$currentUser.name}">
+                <a href="/u/{$currentUser.name}">
                     <div class="menu-item">
                         <h3 class="data-title">Account</h3>
                     </div>

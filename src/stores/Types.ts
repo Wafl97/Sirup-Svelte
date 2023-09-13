@@ -27,8 +27,8 @@ const some = <T> (t: T): Optional<T> => {
     return new Optional<T>(t);
 }
 
-const none = (): Optional<null> => {
-    return new Optional<null>(null);
+const none = (): Optional<any> => {
+    return new Optional(null);
 }
 
 export {some, none};

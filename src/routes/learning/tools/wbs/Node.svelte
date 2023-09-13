@@ -5,6 +5,12 @@
 
     export let indent: string = "0";
     export let root: boolean = false;
+    export let hasChildren: boolean = false;
+
+    let showChildren = true;
+    const toggleChildren = () => {
+        showChildren = !showChildren;
+    }
 
 </script>
 
@@ -26,7 +32,14 @@
             <slot name="card" class=""></slot>
         </Card>
     </Hoverable>
-    <div class="children">
-        <slot name="children"></slot>
-    </div>
+    {#if hasChildren}
+        <button on:click={() => toggleChildren()}>
+            {showChildren? "Hide" : "Show"}
+        </button>
+        <div class="children">
+            {#if showChildren}
+            <slot name="children"></slot>
+            {/if}
+        </div>
+    {/if}
 </div>

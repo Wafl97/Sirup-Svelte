@@ -9,7 +9,7 @@
     
 </script>
 
-<Node indent={"4"}>
+<Node indent={"4"} hasChildren={sub_deliverable.lowest_sub_deliverables.length > 0}>
     <div slot="info">
         Level 3 <br>
         Supporting deliverables

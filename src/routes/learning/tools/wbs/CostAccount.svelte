@@ -9,7 +9,7 @@
     
 </script>
 
-<Node indent={"8"}>
+<Node indent={"8"} hasChildren={cost_account.work_packages.length > 0}>
     <div slot="info">
         Level 5 <br>
         Grouping of work packages for monitoring progress and responsibility

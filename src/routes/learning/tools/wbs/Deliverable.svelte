@@ -9,7 +9,7 @@
     
 </script>
 
-<Node>
+<Node hasChildren={deliverable.sub_deliverables.length > 0}>
     <div slot="info">
         Level 2 <br>
         Major deliverables<br>

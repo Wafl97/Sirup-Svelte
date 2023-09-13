@@ -10,5 +10,10 @@
 </script>
 
 
-<MultiPage pages="{[POS,WBS,Diagram,RBS]}" project="{project}"/>
+<MultiPage pages="{[
+    {name: "POS", component: POS},
+    {name: "WBS", component: WBS},
+    {name: "Diagram", component: Diagram},
+    {name: "RBS", component: RBS}
+    ]}" project="{project}"/>
 

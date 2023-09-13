@@ -14,6 +14,77 @@ import type { Project, POS } from "../../stores/projects";
         let d = date.getDate();
         return d + "-" + m + "-" + y;
     }
+
+    let latex: string | undefined;
+    const toLaTeX = () => {
+        const objectivesArr = pos.objectives.split("*");
+        let objectives = "    \\begin{itemize}\n";
+        objectivesArr.shift();        
+        objectivesArr.forEach(objective => {           
+            objectives += `\t        \\item${objective}`;
+        }); 
+        objectives += "\n\t    \\end{itemize}";
+        latex = `
+\\begin{table}[h]
+    \\begin{tabular}{|p{\\textwidth}|}
+        \\hline
+        \\begin{tabular}{m{6.5em}|p{7em}|p{5.5em}|p{10em}}
+            PROJECT OVERVIEW STATEMENT & 
+            \\begin{tabular}{c}
+                Project Name \\\\
+                ${project.projectName}
+            \\end{tabular} & 
+            \\begin{tabular}{c}
+                Projcet No. \\\\
+                1
+            \\end{tabular} & 
+            \\begin{tabular}{c}
+                Projcet Manager \\\\\\
+                
+            \\end{tabular} \\\\
+        \\end{tabular} \\\\
+        \\hline
+        \\textbf{Problem/Opportunity} \\\\
+        ${pos.problems_opportunity} \\\\
+        \\hline
+        \\textbf{Goal} \\\\
+        ${pos.goal} \\\\
+        \\hline
+        \\textbf{Objectives} \\\\
+        ${objectives} \\\\
+        \\hline
+        \\textbf{Success Criteria} \\\\
+        ${pos.success_criteria} \\\\
+        \\hline
+        \\textbf{Assumptions, Risks, Obstacles} \\\\
+        ${pos.assumptions_risks_obstacles} \\\\
+        \\hline
+        \\begin{tabular}{p{9em}|p{5em}|p{9em}|p{5em}}
+            \\begin{tabular}{c}
+                Prepared by \\\\\\
+                ${pos.prepBy}
+            \\end{tabular} &
+            \\begin{tabular}{c}
+                Date \\\\\\
+                ${pos.prepDate}
+            \\end{tabular} &
+            \\begin{tabular}{c}
+                Approved by \\\\\\
+                ${pos.aprDate}
+            \\end{tabular} &
+            \\begin{tabular}{c}
+                Date \\\\\\
+                ${pos.aprDate}
+            \\end{tabular}
+        \\end{tabular} \\\\
+        \\hline
+    \\end{tabular}
+\\end{table}`
+    };
+    let showJson = false;
+    const toJson = () => {
+        showJson = true;
+    }
 </script>
 
 <style>
@@ -232,4 +303,16 @@ import type { Project, POS } from "../../stores/projects";
             </div>
         </div>
     </div>
+    <button on:click={() => toLaTeX()}>To LaTeX</button>
+    <button on:click={() => toJson()}>To JSON</button>
+{/if}
+{#if latex}
+    <pre><code>>
+        {latex}
+    </code></pre>
+{/if}
+{#if showJson}
+    <pre><code>
+        {JSON.stringify(pos, null, 4)}
+    </code></pre>
 {/if}

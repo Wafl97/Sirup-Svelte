@@ -9,7 +9,7 @@
     
 </script>
 
-<Node indent={"6"}>
+<Node indent={"6"} hasChildren={lowest_sub_deliverable.cost_accounts.length > 0}>
     <div slot="info">
         Level 4 <br>
         Lowest management responsibility level

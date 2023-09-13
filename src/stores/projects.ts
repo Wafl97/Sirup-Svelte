@@ -13,10 +13,11 @@ type Project = {
 }
 enum Stage {
     ALL = -1,
-    ANALYSIS = 0,
-    DESIGN = 1,
-    IMPLEMENTATION = 2,
-    COMPLETE = 3
+    DEFINING = 0,
+    PLANNING = 1,
+    EXECUTION = 2,
+    CLOSING = 3,
+    COMPLETE = 4,
 }
 type POS = {
     prepDate?: string;
@@ -39,7 +40,7 @@ const dummies = [
     {
         projectId: createId(),
         projectName: "Project-01",
-        stage: Stage.ANALYSIS,
+        stage: Stage.DEFINING,
         pos: {
             problems_opportunity: "",
             goal: "",
@@ -54,7 +55,7 @@ const dummies = [
     {
         projectId: createId(),
         projectName: "Project-02",
-        stage: Stage.DESIGN,
+        stage: Stage.PLANNING,
         pos: {
             problems_opportunity: "",
             goal: "",
@@ -67,7 +68,7 @@ const dummies = [
     {
         projectId: createId(),
         projectName: "Project-03",
-        stage: Stage.IMPLEMENTATION,
+        stage: Stage.EXECUTION,
         pos: {
             problems_opportunity: "",
             goal: "",
@@ -80,6 +81,19 @@ const dummies = [
     {
         projectId: createId(),
         projectName: "Project-04",
+        stage: Stage.CLOSING,
+        pos: {
+            problems_opportunity: "",
+            goal: "",
+            objectives: "",
+            success_criteria: "",
+            assumptions_risks_obstacles: "",
+        },
+        data: [],
+    },
+    {
+        projectId: createId(),
+        projectName: "Project-05",
         stage: Stage.COMPLETE,
         pos: {
             problems_opportunity: "",
@@ -112,7 +126,7 @@ const getAllProjects = (): Project[] => {
     return projectArr;
 }
 
-const getProject = (projectId: string): Optional<Project | null> => {
+const getProject = (projectId: string): Optional<Project> => {
     let p;
     projects.update(projects => {
         p = projects.get(projectId);
@@ -128,14 +142,8 @@ const addProject = (projectName: string) => {
     let p: Project = {
         projectId: createId(),
         projectName: projectName,
-        stage: Stage.ANALYSIS,
-        pos: {
-            problems_opportunity: "",
-            goal: "",
-            objectives: "",
-            success_criteria: "",
-            assumptions_risks_obstacles: "",
-        },
+        stage: Stage.DEFINING,
+        pos: newPos(),
         data: [],
     };
     projects.update(projects => {
@@ -144,11 +152,22 @@ const addProject = (projectName: string) => {
     });
 }
 
+const newPos = () => {
+    return {
+        problems_opportunity: "",
+        goal: "",
+        objectives: "",
+        success_criteria: "",
+        assumptions_risks_obstacles: "",
+    }
+}
+
 const updateProject = (project: Project) => {
     projects.update(projects => {
-        projects.set(project.projectName, project);
+        projects.set(project.projectId, project);
         return projects;
     });
+    
 }
 
 const GET = (url: string, body?: string) => {

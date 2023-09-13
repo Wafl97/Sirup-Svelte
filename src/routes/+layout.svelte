@@ -25,7 +25,7 @@
         top: 0;
         width: 100vw;
         height: 4.5rem;
-        backdrop-filter: blur(2px);
+        backdrop-filter: blur(10px);
         z-index: 99;
     }
     #content {

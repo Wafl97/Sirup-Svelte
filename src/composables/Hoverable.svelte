@@ -6,6 +6,8 @@
     const hId = "h" + Math.random();
     const iId = "i" + Math.random();
 
+    export let width: string = "fit-content";
+
     onMount(() => {
         const hoverable = document.getElementById(hId);
         const infoDiv = document.getElementById(iId);
@@ -27,7 +29,7 @@
 
 <style>
     .hoverable {
-        width: fit-content;
+        width: var(--width);
         height: fit-content;
     }
     .info {
@@ -43,7 +45,7 @@
     }
 </style>
 
-<div class="hoverable" id="{hId}">
+<div class="hoverable" id="{hId}" style="--width:{width}">
     <span class="info" id="{iId}">
         <Card color="{$theme.tooltip_color}">
             <slot name="info"></slot>

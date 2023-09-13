@@ -65,6 +65,11 @@
                         <span class="checkmark">{checkmark}</span>
                     {/if}
                 </div>
+                <div class="stage" data-completed="{project.stage >= 4}" id="state-implementation">
+                    {#if project.stage >= 4}
+                        <span class="checkmark">{checkmark}</span>
+                    {/if}
+                </div>
             </div>
         </div>
     </Card>

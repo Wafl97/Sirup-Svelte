@@ -20,7 +20,7 @@ const dark_theme: Theme = {
     footer_color: "linear-gradient(90deg, rgb(10,10,20), rgb(20,20,30), rgb(10,10,20))",
     link_color: "cyan",
     link_visited_color: "magenta",
-    input_color: "rgba(20,20,30)",
+    input_color: "rgba(30,30,40)",
     input_hover_color: "rgba(50,50,60)",
     tooltip_color: "rgb(0,50,125)",
 }
@@ -32,8 +32,8 @@ const light_theme: Theme = {
     footer_color: "linear-gradient(90deg, rgb(200,200,210), rgb(210,210,220), rgb(200,200,210))",
     link_color: "blue",
     link_visited_color: "purple",
-    input_color: "rgb(230,230,240)",
-    input_hover_color: "rgba(200,200,210)",
+    input_color: "rgb(200,200,210)",
+    input_hover_color: "rgba(180,180,190)",
     tooltip_color: "rgb(150,200,255)",
 }
 

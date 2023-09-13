@@ -22,7 +22,7 @@
     }
 </style>
 
-<Node root={true}>
+<Node root={true} hasChildren={wbs.deliverables.length > 0}>
     <div slot="info">
         Level 1<br>
         Complete project<br>

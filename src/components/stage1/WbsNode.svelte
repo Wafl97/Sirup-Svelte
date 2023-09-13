@@ -58,15 +58,14 @@
         const arr = []
         let code = "";
         let p = node.parent;
-        if (!p?.parent) return code;
-        while (p.parent !== undefined) {
+        while (p?.parent !== undefined) {
             arr.push(p.index + 1);
             p = p.parent;
         }
         for (let i = arr.length - 1; i >= 0; i--) {
             code += arr[i] + ".";
         }
-        code += node.index + 1;
+        code += node.index + 1;       
         return code;
     }
 

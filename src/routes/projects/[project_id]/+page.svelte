@@ -3,6 +3,7 @@
     import {getProject, updateProject, Stage} from "../../../stores/projects";
     import {page} from "$app/stores";
     import ProjectStage1 from "../../../components/stage1/ProjectStage1.svelte";
+    import ProjectStage2 from "../../../components/stage2/ProjectStage2.svelte";
 
     let p_id = $page.params.project_id;
 
@@ -18,17 +19,23 @@
 
     const nextStage = () => {
         switch (project.stage) {
-            case Stage.ANALYSIS: {
-                project.stage = Stage.DESIGN;
+            case Stage.DEFINING: {
+                project.stage = Stage.PLANNING;
                 break;
             }
-            case Stage.DESIGN: {
-                project.stage = Stage.IMPLEMENTATION;
+            case Stage.PLANNING: {
+                project.stage = Stage.EXECUTION;
                 break;
             }
-            case Stage.IMPLEMENTATION: {
+            case Stage.EXECUTION: {
+                project.stage = Stage.CLOSING;
+                break;
+            }
+            case Stage.CLOSING: {
                 project.stage = Stage.COMPLETE;
-                break;
+            }
+            default: {
+                return;
             }
         }
         updateProject(project);
@@ -37,16 +44,22 @@
     const previousStage = () => {
         switch (project.stage) {
             case Stage.COMPLETE: {
-                project.stage = Stage.IMPLEMENTATION;
+                project.stage = Stage.CLOSING;
                 break;
             }
-            case Stage.IMPLEMENTATION: {
-                project.stage = Stage.DESIGN;
+            case Stage.CLOSING: {
+                project.stage = Stage.EXECUTION;
                 break;
             }
-            case Stage.DESIGN: {
-                project.stage = Stage.ANALYSIS;
+            case Stage.EXECUTION: {
+                project.stage = Stage.PLANNING;
                 break;
+            }
+            case Stage.PLANNING: {
+                project.stage = Stage.DEFINING;
+            }
+            default: {
+                return;
             }
         }
         updateProject(project);
@@ -54,23 +67,27 @@
 </script>
 
 {#if project}
-    {#if project.stage === Stage.ANALYSIS}
+    {#if project.stage === Stage.DEFINING}
         <ProjectStage1 project="{project}"/>
     {:else}
-        {#if project.stage === Stage.DESIGN}
-            DESIGN
+        {#if project.stage === Stage.PLANNING}
+            <ProjectStage2 project="{project}"/>
         {:else}
-            {#if project.stage === Stage.IMPLEMENTATION}
-                IMPLEMENTING
+            {#if project.stage === Stage.EXECUTION}
+                EXCUTION
             {:else}
-                COMPLETED
+                {#if project.stage === Stage.CLOSING}
+                    CLOSING
+                {:else}
+                    COMPLETED
+                {/if}
             {/if}
         {/if}
     {/if}
-    <button class="prev" on:click={() => previousStage()} disabled="{project.stage === Stage.ANALYSIS}">
+    <button class="prev" on:click={() => previousStage()} disabled="{project.stage === Stage.DEFINING}">
         Go to previous stage
     </button>
-    <button id="next" on:click={() => nextStage()} disabled="{project.stage === Stage.DESIGN}">
+    <button id="next" on:click={() => nextStage()} disabled="{project.stage === Stage.COMPLETE}">
         Go to next stage
     </button>
 {/if}
